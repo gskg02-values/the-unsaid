@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unfolding</title>
+
+<script defer data-domain="gskg02-values.github.io" src="https://plausible.io/js/script.js"></script>
+  
+<style>
+body {
+  margin: 0;
+  font-family: Georgia, serif;
+  background: #efe6c8;
+  color: #2f3a2f;
+  text-align: center;
+  scroll-behavior: smooth;
+}
+
+header {
+  padding: 40px 20px 20px;
+}
+
+header h1 {
+  letter-spacing: 4px;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+header p {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+/* Explore button */
+.explore-btn {
+  display: inline-block;
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: #2f3a2f;
+  border: 2px solid #2f3a2f;
+  border-radius: 8px;
+  transition: background 0.8s, color 0.8s;
+  cursor: pointer;
+}
+
+.explore-btn:hover {
+  background: #2f3a2f;
+  color: #efe6c8;
+}
+
+/* Slides container hidden initially */
+#slidesContainer {
+  display: none;
+}
+
+/* Slide styling */
+.slide {
+  margin: 50px auto;
+  max-width: 80%;
+  opacity: 0;
+  transform: translateY(25px);
+  transition: opacity 2.2s ease, transform 2.2s ease;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* When visible */
+.slide.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide img {
+  width: 100%;
+  display: block;
+  border-radius: 6px;
+}
+
+/* Return to Home button */
+.return-home {
+  margin: 60px 0;
+  font-size: 1rem;
+}
+
+.return-home a {
+  text-decoration: none;
+  color: inherit;
+  opacity: 0.7;
+  border: 1px solid #999;
+  padding: 10px 20px;
+  border-radius: 6px;
+  transition: opacity 0.3s ease, background 0.3s ease;
+}
+
+.return-home a:hover {
+  opacity: 1;
+  background: rgba(0,0,0,0.05);
+}
+
+/* Back to Top arrow */
+#backToTop {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  display: none;
+  font-size: 2rem;
+  background: #2f3a2f;
+  color: #efe6c8;
+  padding: 10px 14px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: background 0.3s, transform 0.3s;
+  z-index: 1000;
+}
+
+#backToTop:hover {
+  background: #444c44;
+  transform: translateY(-2px);
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Unfolding</h1>
+  <p>What quietly becomes</p>
+  <div class="explore-btn" id="exploreBtn">EXPLORE</div>
+</header>
+
+<main id="slidesContainer">
+
+  <div class="slide" id="slide1"><img src="../unfolding/slide1.jpg" alt="Slide 1"></div>
+  <div class="slide"><img src="../unfolding/slide2.jpg" alt="Slide 2"></div>
+  <div class="slide"><img src="../unfolding/slide3.jpg" alt="Slide 3"></div>
+  <div class="slide"><img src="../unfolding/slide4.jpg" alt="Slide 4"></div>
+  <div class="slide"><img src="../unfolding/slide5.jpg" alt="Slide 5"></div>
+  <div class="slide"><img src="../unfolding/slide6.jpg" alt="Slide 6"></div>
+  <div class="slide"><img src="../unfolding/slide7.jpg" alt="Slide 7"></div>
+  <div class="slide"><img src="../unfolding/slide8.jpg" alt="Slide 8"></div>
+  <div class="slide"><img src="../unfolding/slide9.jpg" alt="Slide 9"></div>
+  <div class="slide"><img src="../unfolding/slide10.jpg" alt="Slide 10"></div>
+  <div class="slide"><img src="../unfolding/slide11.jpg" alt="Slide 11"></div>
+  <div class="slide"><img src="../unfolding/slide12.jpg" alt="Slide 12"></div>
+  <div class="slide"><img src="../unfolding/slide13.jpg" alt="Slide 13"></div>
+  <div class="slide"><img src="../unfolding/slide14.jpg" alt="Slide 14"></div>
+  <div class="slide"><img src="../unfolding/slide15.jpg" alt="Slide 15"></div>
+  <div class="slide"><img src="../unfolding/slide16.jpg" alt="Slide 16"></div>
+
+  <div class="return-home">
+    <a href="../index.html">RETURN TO HOME</a>
+  </div>
+</main>
+
+<div id="backToTop">&#8679;</div>
+
+<script>
+const slidesContainer = document.getElementById('slidesContainer');
+const exploreBtn = document.getElementById('exploreBtn');
+const slides = document.querySelectorAll('.slide');
+const backToTop = document.getElementById('backToTop');
+
+
+// EXPLORE click behavior
+exploreBtn.addEventListener('click', () => {
+
+  if (window.plausible) plausible('Explored UNFOLDING');
+
+  slidesContainer.style.display = 'block';
+
+  // Scroll to first slide
+  document.getElementById('slide1').scrollIntoView({
+    behavior: 'smooth'
+  });
+
+  // Cinematic reveal for Slide 1
+  setTimeout(() => {
+    document.getElementById('slide1').classList.add('show');
+  }, 500);
+
+});
+
+
+// Fade in slides on scroll
+function fadeInOnScroll() {
+
+  const triggerBottom = window.innerHeight * 0.9;
+
+  slides.forEach((slide, index) => {
+
+    // Skip slide 1 (index 0)
+    if (index === 0) return;
+
+    const slideTop = slide.getBoundingClientRect().top;
+
+    if (slideTop < triggerBottom) {
+      slide.classList.add('show');
+    }
+  });
+
+  // Show Back-to-Top after slide3
+  const slide3Bottom = slides[2].getBoundingClientRect().bottom;
+
+  if (slide3Bottom < 0) {
+    backToTop.style.display = 'block';
+  } else {
+    backToTop.style.display = 'none';
+  }
+}
+
+window.addEventListener('scroll', fadeInOnScroll);
+
+// Back-to-Top click
+backToTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+
+</body>
+</html>
